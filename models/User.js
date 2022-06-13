@@ -26,7 +26,7 @@ const userSchema = new Schema({
     roles: {
         type: [String],
         required: true,
-        default: ['STUDENT'],
+        default: ['STUDENT','MONITOR'],
     },
     accountStatus: {
         type: String,

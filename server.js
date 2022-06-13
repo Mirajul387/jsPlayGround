@@ -1,7 +1,7 @@
 const express = require('express');
 const connectDB = require('./db');
 const authenticate = require('./middleware/authenticate');
-const routes = require('./routes/index');
+const routes = require('./routes');
 
 const app = express();
 app.use(express.json());

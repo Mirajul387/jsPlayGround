@@ -1,13 +1,19 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const error = require('../utils/error');
 const { findUserByProperty, createNewUser } = require('./user');
+const error = require('../utils/error');
 
 /**
  * -> Service isn't responsible for req,res. It's will be always in controller
  */
 
-const registerService = async ({ name, email, password }) => {
+const registerService = async ({
+    name,
+    email,
+    password,
+    roles,
+    accountStatus,
+}) => {
     let user = await findUserByProperty('email', email);
     if (user) {
         throw error('User already exist!', 400);
@@ -15,7 +21,7 @@ const registerService = async ({ name, email, password }) => {
 
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
-    return createNewUser({ name, email, password: hash });
+    return createNewUser({ name, email, password: hash, roles, accountStatus });
 };
 
 const loginService = async ({ email, password }) => {
